@@ -41,6 +41,13 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Eagerly initialize and seed database on serverless cold starts
+try:
+    init_db()
+    seed_events()
+except Exception as _e:
+    print(f"Initial DB check: {_e}")
+
 # Enable CORS for local development
 app.add_middleware(
     CORSMiddleware,

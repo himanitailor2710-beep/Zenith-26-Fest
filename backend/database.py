@@ -1,8 +1,12 @@
+import os
 import sqlite3
 from pathlib import Path
 
-# Resolve path to fest.db at project root
-DB_PATH = Path(__file__).resolve().parent.parent / "fest.db"
+# On Vercel / serverless platforms, project root is read-only; /tmp is writable
+if os.environ.get("VERCEL"):
+    DB_PATH = Path("/tmp/fest.db")
+else:
+    DB_PATH = Path(__file__).resolve().parent.parent / "fest.db"
 
 
 def get_db_connection():
