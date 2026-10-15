@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme styled with Zenith '26 slate-950 dark theme -->
+    <style name="Theme.Zenith26" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/indigo_600</item>
+        <item name="colorPrimaryVariant">@color/indigo_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/purple_600</item>
+        <item name="colorSecondaryVariant">@color/pink_500</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar and Navigation bar -->
+        <item name="android:statusBarColor">@color/slate_900</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/slate_950</item>
+        <item name="android:windowBackground">@color/slate_950</item>
+    </style>
+</resources>

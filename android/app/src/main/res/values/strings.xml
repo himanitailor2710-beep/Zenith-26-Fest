@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zenith \'26</string>
+    <string name="title_student_portal">Zenith \'26 — Student Portal</string>
+    <string name="title_admin_portal">Zenith \'26 — Coordinator Portal</string>
+    <string name="action_admin">Admin Dashboard</string>
+    <string name="action_student">Student Portal</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_server_settings">Server Settings</string>
+    <string name="server_url_hint">http://10.0.2.2:8081</string>
+    <string name="default_base_url">http://10.0.2.2:8081</string>
+    <string name="loading_events">Loading Zenith \'26 events...</string>
+    <string name="connection_error_title">Cannot Connect to Backend</string>
+    <string name="connection_error_msg">Please ensure the FastAPI server is running on your development host at %1$s.\n\nUse \"Server Settings\" to customize the server IP/port.</string>
+    <string name="btn_retry">Retry Connection</string>
+    <string name="btn_settings">Configure Server</string>
+</resources>

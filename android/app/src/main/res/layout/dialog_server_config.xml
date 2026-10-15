@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/slate_900"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zenith '26 Backend Host"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Configure the FastAPI backend server URL for Android development:"
+        android:textColor="@color/slate_400"
+        android:textSize="12sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/slate_400">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etServerUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/slate_950"
+            android:hint="Base URL (e.g. http://10.0.2.2:8081)"
+            android:inputType="textUri"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="• Android Emulator: http://10.0.2.2:8081\n• Physical Device (via Wi-Fi): http://&lt;PC_IP&gt;:8081\n• ADB Port Forward: http://127.0.0.1:8081"
+        android:textColor="@color/indigo_400"
+        android:textSize="11sp" />
+
+</LinearLayout>
