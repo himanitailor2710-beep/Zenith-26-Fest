@@ -2,6 +2,33 @@
 
 let allEventsCache = [];
 
+// Multi-Color Word Palette
+const WORD_COLORS = [
+  "text-pink-400",
+  "text-yellow-300",
+  "text-cyan-400",
+  "text-emerald-400",
+  "text-purple-400",
+  "text-orange-400",
+  "text-rose-400",
+  "text-sky-300",
+  "text-fuchsia-400",
+  "text-amber-300",
+  "text-teal-300"
+];
+
+function colorizeWords(text) {
+  if (!text) return "";
+  const words = text.toString().split(" ");
+  return words.map((w, i) => {
+    if (w === "—" || w === "-" || w === "•" || w === "/" || w === "|") {
+      return `<span class="text-slate-400 font-normal">${w}</span>`;
+    }
+    const colorClass = WORD_COLORS[i % WORD_COLORS.length];
+    return `<span class="${colorClass} font-extrabold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">${escapeHtml(w)}</span>`;
+  }).join(" ");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setupAdminListeners();
   loadDashboardData();
@@ -15,20 +42,16 @@ function setupAdminListeners() {
   const registrationsContent = document.getElementById("registrations-tab-content");
 
   tabEventsBtn.addEventListener("click", () => {
-    tabEventsBtn.classList.add("border-indigo-500", "text-indigo-400");
-    tabEventsBtn.classList.remove("border-transparent", "text-slate-400");
-    tabRegistrationsBtn.classList.remove("border-indigo-500", "text-indigo-400");
-    tabRegistrationsBtn.classList.add("border-transparent", "text-slate-400");
+    tabEventsBtn.className = "pb-3 text-sm font-black border-b-2 border-pink-500 text-pink-400 flex items-center gap-2 transition-colors";
+    tabRegistrationsBtn.className = "pb-3 text-sm font-black border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2 transition-colors";
 
     eventsContent.classList.remove("hidden");
     registrationsContent.classList.add("hidden");
   });
 
   tabRegistrationsBtn.addEventListener("click", () => {
-    tabRegistrationsBtn.classList.add("border-indigo-500", "text-indigo-400");
-    tabRegistrationsBtn.classList.remove("border-transparent", "text-slate-400");
-    tabEventsBtn.classList.remove("border-indigo-500", "text-indigo-400");
-    tabEventsBtn.classList.add("border-transparent", "text-slate-400");
+    tabRegistrationsBtn.className = "pb-3 text-sm font-black border-b-2 border-pink-500 text-pink-400 flex items-center gap-2 transition-colors";
+    tabEventsBtn.className = "pb-3 text-sm font-black border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2 transition-colors";
 
     eventsContent.classList.add("hidden");
     registrationsContent.classList.remove("hidden");
@@ -50,9 +73,11 @@ function setupAdminListeners() {
 
   // Filter registrations by event dropdown
   const filterDropdown = document.getElementById("filter-reg-event");
-  filterDropdown.addEventListener("change", (e) => {
-    loadRegistrations(e.target.value);
-  });
+  if (filterDropdown) {
+    filterDropdown.addEventListener("change", (e) => {
+      loadRegistrations(e.target.value);
+    });
+  }
 
   // Create Event Modal Triggers (Stretch Goal)
   const createModal = document.getElementById("create-event-modal");
@@ -64,8 +89,8 @@ function setupAdminListeners() {
   const closeModal = () => {
     createModal.classList.add("hidden");
     document.getElementById("create-event-form").reset();
-    document.getElementById("create-event-error").classList.add("hidden");
-    document.getElementById("create-event-success").classList.add("hidden");
+    const errBox = document.getElementById("create-event-error");
+    if (errBox) errBox.classList.add("hidden");
   };
 
   openCreateBtn.addEventListener("click", openModal);
@@ -149,11 +174,11 @@ function renderStats(stats) {
     const icon = categoryIcons[cat] || "🏷️";
     const card = document.createElement("div");
     card.className =
-      "bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col items-center justify-center text-center shadow-sm";
+      "bg-black/50 border border-white/15 hover:border-pink-500/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg backdrop-blur-xl transition-all hover:scale-105 ring-1 ring-white/5";
     card.innerHTML = `
-      <div class="text-xl mb-1">${icon}</div>
-      <div class="text-xs font-semibold text-slate-300 truncate w-full">${cat}</div>
-      <div class="text-lg font-black text-indigo-400 mt-0.5">${count} <span class="text-[10px] text-slate-400 font-normal">events</span></div>
+      <div class="text-2xl mb-1">${icon}</div>
+      <div class="text-xs font-black text-slate-200 truncate w-full">${cat}</div>
+      <div class="text-lg font-black text-pink-400 mt-1">${count} <span class="text-[10px] text-yellow-300 font-bold">events</span></div>
     `;
     catContainer.appendChild(card);
   });
@@ -161,7 +186,8 @@ function renderStats(stats) {
 
 // Render Events Demand Table (Sorted by Utilization % Descending)
 function renderEventsTable(events) {
-  const tbody = document.getElementById("events-table-body");
+  const tbody = document.getElementById("events-demand-tbody") || document.getElementById("events-table-body");
+  if (!tbody) return;
   tbody.innerHTML = "";
 
   if (events.length === 0) {
@@ -169,7 +195,6 @@ function renderEventsTable(events) {
     return;
   }
 
-  // Calculate live utilization for each event and sort descending
   const enrichedEvents = events.map((event) => {
     const registered = event.capacity - event.available_seats;
     const utilizationPct =
@@ -181,7 +206,6 @@ function renderEventsTable(events) {
     };
   });
 
-  // Sort descending by utilization percentage
   enrichedEvents.sort((a, b) => b.utilizationPct - a.utilizationPct);
 
   enrichedEvents.forEach((ev) => {
@@ -189,76 +213,62 @@ function renderEventsTable(events) {
     const isCritical = ev.utilizationPct >= 90;
     const isFull = ev.available_seats <= 0;
 
-    // Row styling: highlight warning if >90%
     if (isCritical) {
       tr.className =
-        "bg-red-950/20 hover:bg-red-950/30 border-l-4 border-l-red-500 transition-colors";
+        "bg-red-950/30 hover:bg-red-950/40 border-l-4 border-l-red-500 transition-colors";
     } else {
-      tr.className = "hover:bg-slate-800/40 transition-colors";
+      tr.className = "hover:bg-white/5 transition-colors";
     }
 
     tr.innerHTML = `
-      <td class="py-3 px-4">
-        <div class="flex items-center gap-2.5">
-          <span class="text-xl">${ev.icon || "🎉"}</span>
+      <td class="py-3.5 px-5">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">${ev.icon || "🎉"}</span>
           <div>
-            <div class="font-bold text-white tracking-tight flex items-center gap-1.5">
-              <span>${escapeHtml(ev.title)}</span>
+            <div class="font-black text-white tracking-tight flex items-center gap-2">
+              <span>${colorizeWords(ev.title)}</span>
               ${
                 isFull
-                  ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-red-500/20 text-red-400 border border-red-500/40">FULL</span>`
+                  ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-red-500/20 text-red-400 border border-red-500/40">FULL</span>`
                   : isCritical
-                  ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">&gt;90% CAP</span>`
+                  ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40">&gt;90%</span>`
                   : ""
               }
             </div>
-            <div class="text-[11px] text-slate-400">ID #${ev.id}</div>
+            <div class="text-[11px] text-slate-400 font-bold">ID #${ev.id}</div>
           </div>
         </div>
       </td>
-      <td class="py-3 px-4">
-        <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+      <td class="py-3.5 px-5">
+        <span class="px-3 py-1 rounded-full text-xs font-black bg-white/10 text-cyan-300 border border-cyan-400/30">
           ${escapeHtml(ev.category)}
         </span>
       </td>
-      <td class="py-3 px-4 text-xs text-slate-300">
-        <div>${escapeHtml(ev.event_date)}</div>
-        <div class="text-slate-400 text-[11px]">${escapeHtml(ev.event_time)}</div>
+      <td class="py-3.5 px-5 text-xs text-slate-200">
+        <div class="font-bold text-pink-300">${escapeHtml(ev.event_date)}</div>
+        <div class="text-yellow-300 text-[11px] font-bold">${escapeHtml(ev.event_time)}</div>
       </td>
-      <td class="py-3 px-4 text-xs text-slate-300 truncate max-w-[140px]">
-        ${escapeHtml(ev.venue)}
+      <td class="py-3.5 px-5 text-xs text-slate-200 truncate max-w-[150px] font-bold">
+        ${colorizeWords(ev.venue)}
       </td>
-      <td class="py-3 px-4 text-center text-xs">
-        <span class="font-bold ${isCritical ? "text-red-400" : "text-slate-200"}">${ev.registered}</span>
+      <td class="py-3.5 px-5 text-center text-xs">
+        <span class="font-black text-sm ${isCritical ? "text-red-400" : "text-emerald-400"}">${ev.registered}</span>
         <span class="text-slate-400"> / ${ev.capacity}</span>
       </td>
-      <td class="py-3 px-4 text-right">
-        <div class="inline-flex flex-col items-end">
+      <td class="py-3.5 px-5 text-center">
+        <div class="inline-flex flex-col items-center">
           <span class="text-sm font-black ${
-            isCritical ? "text-red-400 animate-pulse font-mono" : "text-slate-200 font-mono"
+            isCritical ? "text-red-400 animate-pulse font-mono" : "text-slate-100 font-mono"
           }">${ev.utilizationPct}%</span>
-          <div class="w-16 bg-slate-950 rounded-full h-1 mt-1 overflow-hidden border border-slate-800">
-            <div class="h-1 ${isCritical ? "bg-red-500" : "bg-indigo-500"} rounded-full" style="width: ${Math.min(100, ev.utilizationPct)}%"></div>
+          <div class="w-16 bg-black/60 rounded-full h-1.5 mt-1 overflow-hidden border border-white/10">
+            <div class="h-1.5 ${isCritical ? "bg-red-500" : "bg-gradient-to-r from-pink-500 to-cyan-400"} rounded-full" style="width: ${Math.min(100, ev.utilizationPct)}%"></div>
           </div>
         </div>
       </td>
-      <td class="py-3 px-4 text-center">
-        <button 
-          data-event-id="${ev.id}" 
-          class="view-ev-regs-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 transition-all"
-        >
-          View Regs (${ev.registered})
-        </button>
+      <td class="py-3.5 px-5 text-right font-black text-emerald-300">
+        ${ev.fee === 0 ? "Free" : "₹" + ev.fee}
       </td>
     `;
-
-    // Hook View Regs button
-    const viewBtn = tr.querySelector(".view-ev-regs-btn");
-    viewBtn.addEventListener("click", () => {
-      document.getElementById("tab-registrations-btn").click();
-      document.getElementById("filter-reg-event").value = ev.id;
-      loadRegistrations(ev.id);
-    });
 
     tbody.appendChild(tr);
   });
@@ -267,6 +277,7 @@ function renderEventsTable(events) {
 // Populate Event Filter Dropdown
 function populateEventFilterDropdown(events) {
   const dropdown = document.getElementById("filter-reg-event");
+  if (!dropdown) return;
   const selected = dropdown.value;
   dropdown.innerHTML = `<option value="">All Events (Full List)</option>`;
 
@@ -282,8 +293,8 @@ function populateEventFilterDropdown(events) {
 
 // Fetch and Render Raw Registrations List
 async function loadRegistrations(eventIdFilter = "") {
-  const tbody = document.getElementById("registrations-table-body");
-  const countLabel = document.getElementById("reg-count-label");
+  const tbody = document.getElementById("registrations-tbody") || document.getElementById("registrations-table-body");
+  if (!tbody) return;
 
   tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400">Loading registrations...</td></tr>`;
 
@@ -297,10 +308,6 @@ async function loadRegistrations(eventIdFilter = "") {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const registrations = await res.json();
 
-    countLabel.textContent = `Showing ${registrations.length} registration${
-      registrations.length === 1 ? "" : "s"
-    }`;
-
     if (registrations.length === 0) {
       tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400">No registrations recorded${
         eventIdFilter ? " for this event" : ""
@@ -311,21 +318,20 @@ async function loadRegistrations(eventIdFilter = "") {
     tbody.innerHTML = "";
     registrations.forEach((reg) => {
       const tr = document.createElement("tr");
-      tr.className = "hover:bg-slate-800/40 transition-colors";
+      tr.className = "hover:bg-white/5 transition-colors";
       tr.innerHTML = `
-        <td class="py-3 px-4 font-mono text-xs text-indigo-400 font-bold">#${reg.id}</td>
-        <td class="py-3 px-4 font-bold text-white text-xs sm:text-sm">${escapeHtml(reg.student_name)}</td>
-        <td class="py-3 px-4 font-mono text-xs text-slate-300">${escapeHtml(reg.roll_number)}</td>
-        <td class="py-3 px-4 text-xs text-slate-300 font-mono">${escapeHtml(reg.email)}</td>
-        <td class="py-3 px-4 text-xs text-slate-400">${escapeHtml(reg.phone || "—")}</td>
-        <td class="py-3 px-4 text-xs font-semibold text-indigo-300">${escapeHtml(reg.event_title)}</td>
-        <td class="py-3 px-4 text-xs text-slate-400">${escapeHtml(reg.registered_at)}</td>
-        <td class="py-3 px-4 text-center">
+        <td class="py-3.5 px-5 font-mono text-xs text-pink-400 font-black">#${reg.id}</td>
+        <td class="py-3.5 px-5 font-black text-white text-xs sm:text-sm">${escapeHtml(reg.student_name)}</td>
+        <td class="py-3.5 px-5 font-mono text-xs text-yellow-300 font-bold">${escapeHtml(reg.roll_number)}</td>
+        <td class="py-3.5 px-5 text-xs text-cyan-300 font-mono">${escapeHtml(reg.email)}</td>
+        <td class="py-3.5 px-5 text-xs font-black text-purple-300">${colorizeWords(reg.event_title)}</td>
+        <td class="py-3.5 px-5 text-xs text-slate-400 font-medium">${escapeHtml(reg.registered_at)}</td>
+        <td class="py-3.5 px-5 text-center">
           <button 
             data-reg-id="${reg.id}" 
             data-student="${escapeHtml(reg.student_name)}" 
             data-event="${escapeHtml(reg.event_title)}"
-            class="delete-reg-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-950/40 hover:bg-red-900/60 text-red-300 hover:text-red-100 border border-red-800/60 transition-all"
+            class="delete-reg-btn px-3 py-1 rounded-xl text-xs font-black bg-red-950/60 hover:bg-red-900/80 text-red-300 hover:text-white border border-red-800 transition-all shadow-md"
             title="Cancel this registration"
           >
             Cancel
@@ -333,7 +339,6 @@ async function loadRegistrations(eventIdFilter = "") {
         </td>
       `;
 
-      // Cancel/Delete Registration (Stretch Goal 2)
       const delBtn = tr.querySelector(".delete-reg-btn");
       delBtn.addEventListener("click", () => {
         handleDeleteRegistration(reg.id, reg.student_name, reg.event_title);
@@ -347,10 +352,10 @@ async function loadRegistrations(eventIdFilter = "") {
   }
 }
 
-// Cancel / Delete Registration Handler (Stretch Goal 2)
+// Cancel / Delete Registration Handler
 async function handleDeleteRegistration(regId, studentName, eventTitle) {
   const confirmed = confirm(
-    `Are you sure you want to cancel the registration for:\nStudent: ${studentName}\nEvent: ${eventTitle}?\n\nThis will immediately free up 1 seat for this event.`
+    `Are you sure you want to cancel the registration for ${studentName} from "${eventTitle}"? This will free up 1 seat immediately.`
   );
   if (!confirmed) return;
 
@@ -360,55 +365,33 @@ async function handleDeleteRegistration(regId, studentName, eventTitle) {
     });
 
     if (!res.ok) {
-      const err = await res.json();
-      alert(`Could not cancel registration: ${err.detail || res.statusText}`);
-      return;
+      const data = await res.json();
+      throw new Error(data.detail || `Server returned HTTP ${res.status}`);
     }
 
-    // Refresh both tables and stats immediately
-    const filterVal = document.getElementById("filter-reg-event").value;
-    loadRegistrations(filterVal);
     loadDashboardData();
+    const filterVal = document.getElementById("filter-reg-event")?.value || "";
+    loadRegistrations(filterVal);
   } catch (err) {
-    alert(`Network error cancelling registration: ${err.message}`);
+    alert(`Could not cancel registration: ${err.message}`);
   }
 }
 
-// Handle Admin Adding New Event (Stretch Goal 1)
+// Handle Create Event Form Submission (POST /api/events)
 async function handleCreateEventSubmit(e) {
   e.preventDefault();
+  const errorBox = document.getElementById("create-event-error");
+  errorBox.classList.add("hidden");
 
   const title = document.getElementById("new-event-title").value.trim();
   const category = document.getElementById("new-event-category").value;
-  const icon = document.getElementById("new-event-icon").value.trim() || "🎉";
-  const event_date = document.getElementById("new-event-date").value;
+  const icon = document.getElementById("new-event-icon").value.trim() || "⚡";
+  const event_date = document.getElementById("new-event-date").value.trim();
   const event_time = document.getElementById("new-event-time").value.trim();
   const venue = document.getElementById("new-event-venue").value.trim();
   const capacity = parseInt(document.getElementById("new-event-capacity").value, 10);
   const fee = parseInt(document.getElementById("new-event-fee").value, 10) || 0;
   const description = document.getElementById("new-event-description").value.trim();
-
-  const errBox = document.getElementById("create-event-error");
-  const successBox = document.getElementById("create-event-success");
-  const submitBtn = document.getElementById("submit-create-event-btn");
-
-  errBox.classList.add("hidden");
-  successBox.classList.add("hidden");
-
-  // Client-side validation check
-  if (!title || !venue || !event_time || !event_date) {
-    errBox.textContent = "Please fill in all required event fields.";
-    errBox.classList.remove("hidden");
-    return;
-  }
-  if (isNaN(capacity) || capacity <= 0) {
-    errBox.textContent = "Capacity must be a positive number greater than zero.";
-    errBox.classList.remove("hidden");
-    return;
-  }
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Creating...";
 
   try {
     const res = await fetch("/api/events", {
@@ -427,30 +410,17 @@ async function handleCreateEventSubmit(e) {
       }),
     });
 
-    const data = await res.json();
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Create Event";
-
     if (!res.ok) {
-      errBox.textContent = data.detail || "Server rejected event creation.";
-      errBox.classList.remove("hidden");
-      return;
+      const data = await res.json();
+      throw new Error(data.detail || `HTTP ${res.status}`);
     }
 
-    successBox.textContent = `Event "${data.title}" created successfully!`;
-    successBox.classList.remove("hidden");
-
-    // Refresh dashboard
+    document.getElementById("create-event-modal").classList.add("hidden");
+    document.getElementById("create-event-form").reset();
     loadDashboardData();
-
-    setTimeout(() => {
-      document.getElementById("close-create-event-btn").click();
-    }, 1500);
   } catch (err) {
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Create Event";
-    errBox.textContent = `Network error: ${err.message}`;
-    errBox.classList.remove("hidden");
+    errorBox.classList.remove("hidden");
+    errorBox.textContent = `Error creating event: ${err.message}`;
   }
 }
 

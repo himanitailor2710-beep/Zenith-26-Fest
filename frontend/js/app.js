@@ -5,32 +5,65 @@ let currentSearch = "";
 let searchDebounceTimer = null;
 let currentEventData = null;
 
-// Category Badge Color Palette
+// Multi-Color Vibrant Word Color Palette (Artistic & Eye-Catching)
+const WORD_COLORS = [
+  "text-pink-400",
+  "text-yellow-300",
+  "text-cyan-400",
+  "text-emerald-400",
+  "text-purple-400",
+  "text-orange-400",
+  "text-rose-400",
+  "text-sky-300",
+  "text-fuchsia-400",
+  "text-amber-300",
+  "text-teal-300"
+];
+
+// Helper: Colorize Every Single Word in Text
+function colorizeWords(text) {
+  if (!text) return "";
+  const words = text.toString().split(" ");
+  return words.map((w, i) => {
+    if (w === "—" || w === "-" || w === "•" || w === "/" || w === "|" || w === "&") {
+      return `<span class="text-slate-400 font-normal">${w}</span>`;
+    }
+    const colorClass = WORD_COLORS[i % WORD_COLORS.length];
+    return `<span class="${colorClass} font-extrabold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">${escapeHtml(w)}</span>`;
+  }).join(" ");
+}
+
+// Category Badge Color Palette with Neon Glowing Accents
 const categoryColors = {
   Technical: {
-    bg: "bg-blue-500/10",
-    text: "text-blue-400",
-    border: "border-blue-500/25",
+    bg: "bg-cyan-950/70",
+    text: "text-cyan-300",
+    border: "border-cyan-400/40",
+    glow: "shadow-[0_0_12px_rgba(6,182,212,0.35)]"
   },
   Cultural: {
-    bg: "bg-purple-500/10",
-    text: "text-purple-400",
-    border: "border-purple-500/25",
+    bg: "bg-pink-950/70",
+    text: "text-pink-300",
+    border: "border-pink-400/40",
+    glow: "shadow-[0_0_12px_rgba(236,72,153,0.35)]"
   },
   Sports: {
-    bg: "bg-emerald-500/10",
-    text: "text-emerald-400",
-    border: "border-emerald-500/25",
+    bg: "bg-emerald-950/70",
+    text: "text-emerald-300",
+    border: "border-emerald-400/40",
+    glow: "shadow-[0_0_12px_rgba(16,185,129,0.35)]"
   },
   Gaming: {
-    bg: "bg-amber-500/10",
-    text: "text-amber-400",
-    border: "border-amber-500/25",
+    bg: "bg-purple-950/70",
+    text: "text-purple-300",
+    border: "border-purple-400/40",
+    glow: "shadow-[0_0_12px_rgba(168,85,247,0.35)]"
   },
   Workshop: {
-    bg: "bg-rose-500/10",
-    text: "text-rose-400",
-    border: "border-rose-500/25",
+    bg: "bg-amber-950/70",
+    text: "text-amber-300",
+    border: "border-amber-400/40",
+    glow: "shadow-[0_0_12px_rgba(245,158,11,0.35)]"
   },
 };
 
@@ -49,21 +82,25 @@ function setupEventListeners() {
       catButtons.forEach((b) => {
         b.classList.remove(
           "active-filter",
-          "bg-indigo-600",
+          "bg-gradient-to-r",
+          "from-pink-500",
+          "via-purple-600",
+          "to-indigo-600",
           "text-white",
-          "shadow-md",
-          "shadow-indigo-600/30"
+          "border-pink-400/40"
         );
-        b.classList.add("bg-slate-800", "text-slate-300", "border", "border-slate-700");
+        b.classList.add("bg-black/45", "text-slate-300", "border-white/10");
       });
       btn.classList.add(
         "active-filter",
-        "bg-indigo-600",
+        "bg-gradient-to-r",
+        "from-pink-500",
+        "via-purple-600",
+        "to-indigo-600",
         "text-white",
-        "shadow-md",
-        "shadow-indigo-600/30"
+        "border-pink-400/40"
       );
-      btn.classList.remove("bg-slate-800", "text-slate-300", "border-slate-700");
+      btn.classList.remove("bg-black/45", "text-slate-300", "border-white/10");
 
       currentCategory = btn.getAttribute("data-category") || "all";
       loadEvents();
@@ -111,14 +148,13 @@ function setupEventListeners() {
       searchInput.value = "";
       clearSearchBtn.classList.add("hidden");
 
-      // Reset button styles
       catButtons.forEach((b) => {
         if (b.getAttribute("data-category") === "all") {
-          b.classList.add("active-filter", "bg-indigo-600", "text-white");
-          b.classList.remove("bg-slate-800", "text-slate-300");
+          b.classList.add("active-filter", "bg-gradient-to-r", "from-pink-500", "via-purple-600", "to-indigo-600", "text-white", "border-pink-400/40");
+          b.classList.remove("bg-black/45", "text-slate-300", "border-white/10");
         } else {
-          b.classList.remove("active-filter", "bg-indigo-600", "text-white");
-          b.classList.add("bg-slate-800", "text-slate-300");
+          b.classList.remove("active-filter", "bg-gradient-to-r", "from-pink-500", "via-purple-600", "to-indigo-600", "text-white", "border-pink-400/40");
+          b.classList.add("bg-black/45", "text-slate-300", "border-white/10");
         }
       });
 
@@ -193,7 +229,7 @@ async function loadEvents() {
     const events = await res.json();
     loadingContainer.classList.add("hidden");
 
-    countBadge.textContent = `${events.length} Event${events.length === 1 ? "" : "s"}`;
+    countBadge.innerHTML = `<span class="text-emerald-400 font-black">${events.length}</span> <span class="text-yellow-300">Event${events.length === 1 ? "" : "s"}</span>`;
 
     if (events.length === 0) {
       emptyContainer.classList.remove("hidden");
@@ -215,21 +251,21 @@ async function loadEvents() {
   }
 }
 
-// Create an Event Card Element
+// Create an Event Card Element (Frosted Glassmorphism + Multi-Colored Words)
 function createEventCard(event, index) {
   const card = document.createElement("div");
   card.className =
-    "card-animate group bg-slate-900/85 backdrop-blur-md border border-slate-800/90 hover:border-indigo-400/60 rounded-2xl p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 flex flex-col justify-between";
+    "card-animate group bg-black/45 hover:bg-slate-950/65 backdrop-blur-xl border border-white/15 hover:border-pink-500/60 rounded-3xl p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.6)] hover:shadow-[0_0_35px_rgba(236,72,153,0.35)] transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5 ring-1 ring-white/5";
   card.style.animationDelay = `${index * 40}ms`;
 
   const isFull = event.available_seats <= 0;
   const catStyle = categoryColors[event.category] || {
-    bg: "bg-indigo-500/10",
-    text: "text-indigo-400",
-    border: "border-indigo-500/25",
+    bg: "bg-pink-950/70",
+    text: "text-pink-300",
+    border: "border-pink-400/40",
+    glow: "shadow-[0_0_12px_rgba(236,72,153,0.35)]",
   };
 
-  // Capacity fill percentage
   const seatsUsed = event.capacity - event.available_seats;
   const pctUsed = Math.min(100, Math.round((seatsUsed / event.capacity) * 100));
 
@@ -237,79 +273,78 @@ function createEventCard(event, index) {
     <div>
       <!-- Top Row: Icon, Category Badge, Fee Pill -->
       <div class="flex items-center justify-between gap-2 mb-4">
-        <div class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
+        <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner">
           ${event.icon || "🎉"}
         </div>
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${catStyle.bg} ${catStyle.text} border ${catStyle.border}">
+          <span class="px-3 py-1 rounded-full text-xs font-black ${catStyle.bg} ${catStyle.text} border ${catStyle.border} ${catStyle.glow}">
             ${event.category}
           </span>
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${
+          <span class="px-3 py-1 rounded-full text-xs font-black ${
             event.fee === 0
-              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/25"
-              : "bg-indigo-500/10 text-indigo-300 border border-indigo-500/25"
+              ? "bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+              : "bg-pink-500/20 text-pink-300 border border-pink-400/40 shadow-[0_0_10px_rgba(236,72,153,0.3)]"
           }">
-            ${event.fee === 0 ? "Free" : "₹" + event.fee}
+            ${event.fee === 0 ? "Free Entry" : "₹" + event.fee}
           </span>
         </div>
       </div>
 
-      <!-- Title & Description Snippet -->
-      <h3 class="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors tracking-tight mb-2">
-        ${escapeHtml(event.title)}
+      <!-- Title: Every Single Word Distinctly Colored -->
+      <h3 class="text-lg font-black tracking-tight mb-2 leading-snug">
+        ${colorizeWords(event.title)}
       </h3>
-      <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 mb-4 leading-relaxed">
+      <p class="text-xs sm:text-sm text-slate-300 line-clamp-2 mb-4 leading-relaxed font-medium">
         ${escapeHtml(event.description || "Join this exciting fest event at Zenith '26.")}
       </p>
 
-      <!-- Details: Date/Time & Venue -->
-      <div class="space-y-1.5 text-xs text-slate-300 mb-5">
+      <!-- Details: Date/Time & Venue with Colored Single Words -->
+      <div class="space-y-2 text-xs mb-5 p-3.5 rounded-2xl bg-white/5 border border-white/10">
         <div class="flex items-center gap-2">
-          <span class="text-indigo-400">📅</span>
-          <span>${escapeHtml(event.event_date)} • ${escapeHtml(event.event_time)}</span>
+          <span class="text-pink-400 text-sm">📅</span>
+          <span class="font-bold"><strong class="text-pink-400">${escapeHtml(event.event_date)}</strong> <span class="text-white/40">•</span> <strong class="text-yellow-300">${escapeHtml(event.event_time)}</strong></span>
         </div>
         <div class="flex items-center gap-2">
-          <span class="text-pink-400">📍</span>
-          <span class="truncate">${escapeHtml(event.venue)}</span>
+          <span class="text-cyan-400 text-sm">📍</span>
+          <span class="truncate font-bold">${colorizeWords(event.venue)}</span>
         </div>
       </div>
     </div>
 
     <!-- Bottom Section: Seat Capacity & Action Button -->
-    <div class="pt-4 border-t border-slate-800/80">
+    <div class="pt-4 border-t border-white/10">
       <div class="flex items-center justify-between text-xs mb-2">
-        <span class="text-slate-400 font-medium">Availability</span>
+        <span class="font-bold"><span class="text-pink-400">Seat</span> <span class="text-cyan-300">Availability</span></span>
         ${
           isFull
-            ? `<span class="px-2 py-0.5 rounded font-black text-xs bg-red-500/20 text-red-400 border border-red-500/40 uppercase tracking-wider animate-pulse">FULL</span>`
-            : `<span class="font-semibold text-slate-200">
-                <strong class="text-emerald-400">${event.available_seats}</strong> / ${event.capacity} seats left
+            ? `<span class="px-2.5 py-0.5 rounded-lg font-black text-xs bg-red-500/25 text-red-400 border border-red-500/50 uppercase tracking-wider animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.4)]">EVENT FULL</span>`
+            : `<span class="font-bold text-slate-200">
+                <strong class="text-emerald-400 font-black text-sm">${event.available_seats}</strong> <span class="text-white/40">/</span> ${event.capacity} <span class="text-yellow-300 font-semibold">left</span>
               </span>`
         }
       </div>
 
       <!-- Capacity Progress Bar -->
-      <div class="w-full bg-slate-950 rounded-full h-1.5 mb-4 overflow-hidden border border-slate-800">
-        <div class="h-1.5 rounded-full transition-all duration-500 ${
+      <div class="w-full bg-black/60 rounded-full h-2 mb-4 overflow-hidden border border-white/10">
+        <div class="h-2 rounded-full transition-all duration-500 ${
           isFull
             ? "bg-red-500"
             : pctUsed >= 85
-            ? "bg-amber-500"
-            : "bg-gradient-to-r from-indigo-500 to-emerald-400"
+            ? "bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.6)]"
+            : "bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 shadow-[0_0_10px_rgba(236,72,153,0.6)]"
         }" style="width: ${pctUsed}%;"></div>
       </div>
 
       <!-- View Details Button -->
       <button 
         data-event-id="${event.id}" 
-        class="view-details-btn w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+        class="view-details-btn w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-black transition-all duration-200 flex items-center justify-center gap-2 ${
           isFull
-            ? "bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"
-            : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/20 hover:scale-[1.01] active:scale-[0.99]"
+            ? "bg-white/10 hover:bg-white/20 text-slate-300 border border-white/15"
+            : "bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 hover:from-pink-500 hover:to-cyan-400 text-white shadow-lg shadow-pink-600/30 hover:scale-[1.02] active:scale-[0.98]"
         }"
       >
-        <span>View Details</span>
-        <span>→</span>
+        <span>${isFull ? "View Full Event Info" : "View Details & Register ⚡"}</span>
       </button>
     </div>
   `;
@@ -335,13 +370,13 @@ async function openEventModal(eventId) {
     const event = await res.json();
     currentEventData = event;
 
-    // Populate Modal Content
+    // Populate Modal Content with Multi-Colored Words
     document.getElementById("form-event-id").value = event.id;
     document.getElementById("modal-icon").textContent = event.icon || "🎉";
-    document.getElementById("modal-title").textContent = event.title;
+    document.getElementById("modal-title").innerHTML = colorizeWords(event.title);
     document.getElementById("modal-category").textContent = event.category;
     document.getElementById("modal-datetime").textContent = `${event.event_date} • ${event.event_time}`;
-    document.getElementById("modal-venue").textContent = event.venue;
+    document.getElementById("modal-venue").innerHTML = colorizeWords(event.venue);
     document.getElementById("modal-fee").textContent = event.fee === 0 ? "Free Entry" : `₹${event.fee}`;
     document.getElementById("modal-seats").textContent =
       event.available_seats <= 0 ? "Sold Out" : `${event.available_seats} / ${event.capacity} seats left`;
@@ -362,7 +397,7 @@ async function openEventModal(eventId) {
     } else {
       submitBtn.disabled = false;
       submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
-      document.getElementById("submit-btn-text").textContent = "Confirm Registration";
+      document.getElementById("submit-btn-text").textContent = "Confirm Registration ⚡";
       errorBox.classList.add("hidden");
     }
 
@@ -381,7 +416,7 @@ function resetForm() {
   document.getElementById("form-error-box").classList.add("hidden");
   document.getElementById("form-success-box").classList.add("hidden");
   document.getElementById("submit-btn-spinner").classList.add("hidden");
-  document.getElementById("submit-btn-text").textContent = "Confirm Registration";
+  document.getElementById("submit-btn-text").textContent = "Confirm Registration ⚡";
   document.getElementById("submit-reg-btn").disabled = false;
 }
 
@@ -455,48 +490,42 @@ async function handleRegistrationSubmit(e) {
     const data = await res.json();
 
     if (!res.ok) {
-      // Show exact server error message (e.g. 400 "Invalid email", 409 "Event is full" or "Already registered")
-      const message = data.detail || "Registration could not be completed.";
-      showFormError(message);
-      submitBtn.disabled = false;
-      spinner.classList.add("hidden");
-      document.getElementById("submit-btn-text").textContent = "Confirm Registration";
+      const msg = data.detail || "Registration failed. Please check your information.";
+      showFormError(msg);
       return;
     }
 
-    // Success (201)
-    spinner.classList.add("hidden");
-    document.getElementById("submit-btn-text").textContent = "Registered!";
+    // Success
     successBox.classList.remove("hidden");
     successText.innerHTML = `Congratulations <strong>${escapeHtml(
       data.student_name
-    )}</strong>! You are officially registered for <strong>${escapeHtml(
-      currentEventData?.title || "this event"
-    )}</strong>. Confirmation ID #${data.id}.`;
+    )}</strong>! Your registration ID is <strong>#${data.id}</strong>. A confirmation has been recorded.`;
+    document.getElementById("registration-form").reset();
+    document.getElementById("submit-btn-text").textContent = "Registered!";
 
-    // Refresh the event grid in the background to update seat count immediately
+    // Trigger fireworks burst
+    if (window.dispatchEvent) {
+      window.dispatchEvent(new CustomEvent("registrationSuccess"));
+    }
+
+    // Reload events in background to refresh seat availability
     loadEvents();
-
-    // Auto close modal after 2.5 seconds
-    setTimeout(() => {
-      const modal = document.getElementById("detail-modal");
-      modal.classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
-      resetForm();
-    }, 2400);
   } catch (err) {
-    showFormError(`Network error: ${err.message}. Please check your connection.`);
+    showFormError(`Network error: ${err.message}. Please check connection.`);
+  } finally {
     submitBtn.disabled = false;
     spinner.classList.add("hidden");
-    document.getElementById("submit-btn-text").textContent = "Confirm Registration";
+    if (document.getElementById("submit-btn-text").textContent === "Registering...") {
+      document.getElementById("submit-btn-text").textContent = "Confirm Registration ⚡";
+    }
   }
 }
 
 function showFormError(msg) {
   const errorBox = document.getElementById("form-error-box");
   const errorText = document.getElementById("form-error-text");
-  errorText.textContent = msg;
   errorBox.classList.remove("hidden");
+  errorText.textContent = msg;
 }
 
 function escapeHtml(str) {

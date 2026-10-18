@@ -7,7 +7,7 @@
   <!-- Favicon using SVG data URI -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20%220%22%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
   
-  <!-- Note: Tailwind Play CDN is used for rapid local development/prototyping in this workshop. Production builds should use a compiled stylesheet. -->
+  <!-- Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,10 +17,10 @@
             brand: {
               50: '#eef2ff',
               100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              900: '#312e81',
+              500: '#ec4899',
+              600: '#db2777',
+              700: '#be185d',
+              900: '#831843',
             }
           },
           animation: {
@@ -46,134 +46,184 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-black text-slate-100 min-h-screen flex flex-col antialiased selection:bg-pink-500 selection:text-white">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
+  <!-- Top Navigation Bar (Frosted Translucent Glass) -->
+  <header class="sticky top-0 z-40 bg-black/40 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.5)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <!-- Brand Logo -->
+        <!-- Brand Logo with Individually Colored Letters -->
         <a href="/" class="flex items-center gap-2.5 group">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-600 to-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
             ⚡
           </div>
           <div>
-            <span class="text-xl font-black tracking-tight text-white group-hover:text-indigo-400 transition-colors">ZENITH '26</span>
-            <span class="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">College Fest</span>
+            <span class="text-xl font-black tracking-wider drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              <span class="text-pink-500">Z</span><span class="text-yellow-400">E</span><span class="text-cyan-400">N</span><span class="text-emerald-400">I</span><span class="text-purple-400">T</span><span class="text-orange-400">H</span>
+              <span class="text-rose-400 font-black ml-1">'26</span>
+            </span>
+            <span class="hidden sm:inline-block ml-2 text-xs font-bold px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 shadow-[0_0_10px_rgba(236,72,153,0.25)]">
+              <span class="text-yellow-300">College</span> <span class="text-cyan-300">Fest</span>
+            </span>
           </div>
         </a>
 
-        <!-- Nav Links -->
+        <!-- Nav Links with Multi-Colored Words -->
         <div class="flex items-center gap-3">
-          <a href="/admin.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 hover:border-slate-600 transition-all shadow-sm backdrop-blur-sm">
+          <a href="/admin.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-white/10 hover:bg-white/20 text-slate-100 border border-white/15 hover:border-pink-500/40 transition-all shadow-md backdrop-blur-md">
             <span>📊</span>
-            <span>Admin Dashboard</span>
+            <span><strong class="text-pink-400">Admin</strong> <strong class="text-cyan-300">Dashboard</strong></span>
           </a>
-          <a href="#events-section" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-md shadow-indigo-600/30 transition-all hover:scale-[1.02] active:scale-[0.98]">
-            Explore Events
+          <a href="#events-section" class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 hover:from-pink-500 hover:to-cyan-400 text-white shadow-lg shadow-pink-600/30 transition-all hover:scale-[1.03] active:scale-[0.98]">
+            <span class="text-yellow-300">Explore</span> <span class="text-white">Events</span>
           </a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-slate-950/60 backdrop-blur-sm py-16 sm:py-24 border-b border-slate-800/70 z-10">
-    <!-- Background Glows -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 sm:w-[600px] h-96 sm:h-[600px] bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-
+  <!-- Hero Section (Completely Transparent — Shines with Background Video & Lasers) -->
+  <section class="relative overflow-hidden py-14 sm:py-20 z-10">
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <!-- Date Banner -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 text-xs sm:text-sm font-medium mb-6 shadow-sm backdrop-blur-md animate-pulse">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Nov 14–15, 2026 • 2 Days of Pure Electric Energy</span>
+      
+      <!-- Date Banner: Every Word Colored -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-white/20 text-xs sm:text-sm font-extrabold mb-6 shadow-xl backdrop-blur-xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span class="text-pink-400">Nov</span>
+        <span class="text-yellow-300">14–15,</span>
+        <span class="text-cyan-400">2026</span>
+        <span class="text-white/40">•</span>
+        <span class="text-emerald-400">2</span>
+        <span class="text-amber-300">Days</span>
+        <span class="text-purple-400">of</span>
+        <span class="text-rose-400">Pure</span>
+        <span class="text-yellow-300">Electric</span>
+        <span class="text-cyan-400">Energy</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight drop-shadow-md">
-        Experience the Pulse of <br class="hidden sm:block">
-        <span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
-          Zenith '26
-        </span>
+      <!-- Main Headline: Every Single Word Distinctly Colored & Eye-Catching -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)]">
+        <span class="text-pink-400 drop-shadow-[0_0_18px_rgba(244,63,94,0.7)]">Experience</span>
+        <span class="text-yellow-300 drop-shadow-[0_0_18px_rgba(253,224,71,0.7)]">the</span>
+        <span class="text-cyan-400 drop-shadow-[0_0_18px_rgba(34,211,238,0.7)]">Electric</span>
+        <span class="text-emerald-400 drop-shadow-[0_0_18px_rgba(52,211,153,0.7)]">Pulse</span>
+        <span class="text-purple-400 drop-shadow-[0_0_18px_rgba(192,132,252,0.7)]">of</span>
+        <br class="hidden sm:block">
+        <span class="text-rose-400 drop-shadow-[0_0_28px_rgba(251,113,133,0.85)] font-black">ZENITH</span>
+        <span class="text-amber-400 drop-shadow-[0_0_28px_rgba(251,191,36,0.85)] font-black">'26</span>
       </h1>
 
-      <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-200 mb-8 leading-relaxed drop-shadow">
-        Code, compete, perform, and create. Explore 14 premier inter-college events spanning technology, cultural arts, gaming, and high-impact workshops.
+      <!-- Subtitle: Every Single Word Individually Styled -->
+      <p class="max-w-3xl mx-auto text-base sm:text-xl font-medium mb-8 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+        <span class="text-cyan-300 font-bold">Code,</span>
+        <span class="text-pink-400 font-bold">compete,</span>
+        <span class="text-amber-300 font-bold">perform,</span>
+        <span class="text-purple-300 font-bold">and</span>
+        <span class="text-emerald-400 font-bold">create.</span>
+        <span class="text-sky-300">Explore</span>
+        <span class="text-yellow-300 font-bold">14</span>
+        <span class="text-rose-300">premier</span>
+        <span class="text-teal-300">inter-college</span>
+        <span class="text-indigo-300">events</span>
+        <span class="text-fuchsia-300">spanning</span>
+        <span class="text-cyan-300">cutting-edge</span>
+        <span class="text-emerald-400 font-bold">technology,</span>
+        <span class="text-pink-400 font-bold">cultural</span>
+        <span class="text-amber-300 font-bold">arts,</span>
+        <span class="text-orange-400 font-bold">high-octane</span>
+        <span class="text-purple-300 font-bold">gaming,</span>
+        <span class="text-sky-300">and</span>
+        <span class="text-yellow-300 font-bold">impactful</span>
+        <span class="text-rose-300 font-bold">workshops.</span>
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-medium text-slate-300">
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
-          <span class="text-indigo-400">🏆</span> 14 Signature Events
+      <!-- Pill Badges: Frosted Glass with Multi-Colored Words -->
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-black">
+        <div class="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-black/45 border border-white/20 backdrop-blur-xl shadow-xl hover:border-pink-500/50 transition-all hover:scale-105">
+          <span class="text-xl">🏆</span>
+          <span class="text-pink-400 font-extrabold">14</span>
+          <span class="text-yellow-300 font-bold">Signature</span>
+          <span class="text-cyan-300 font-bold">Events</span>
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
-          <span class="text-emerald-400">🎟️</span> Instant Free/Paid RSVP
+        <div class="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-black/45 border border-white/20 backdrop-blur-xl shadow-xl hover:border-emerald-500/50 transition-all hover:scale-105">
+          <span class="text-xl">🎟️</span>
+          <span class="text-emerald-400 font-extrabold">Instant</span>
+          <span class="text-purple-300 font-bold">Free/Paid</span>
+          <span class="text-pink-300 font-bold">RSVP</span>
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
-          <span class="text-pink-400">📍</span> On Campus Venues
+        <div class="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-black/45 border border-white/20 backdrop-blur-xl shadow-xl hover:border-amber-500/50 transition-all hover:scale-105">
+          <span class="text-xl">📍</span>
+          <span class="text-amber-300 font-extrabold">On</span>
+          <span class="text-rose-300 font-bold">Campus</span>
+          <span class="text-teal-300 font-bold">Venues</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Events Section -->
-  <main id="events-section" class="relative z-10 flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full">
+  <main id="events-section" class="relative z-10 flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full">
     
-    <!-- Controls Bar: Search & Category Filter Pills -->
-    <div class="bg-slate-900/85 border border-slate-800/90 rounded-2xl p-4 sm:p-6 mb-8 shadow-2xl backdrop-blur-md">
+    <!-- Controls Bar: Frosted Glassmorphism (No Blue Wall!) -->
+    <div class="bg-black/40 border border-white/15 rounded-3xl p-5 sm:p-7 mb-8 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl ring-1 ring-white/5">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         
         <!-- Search Input -->
         <div class="relative flex-1 max-w-md">
-          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-pink-400">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </div>
           <input 
             type="text" 
             id="search-input" 
             placeholder="Search events by title (e.g. Code, Robo, Dance)..." 
-            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 transition-all"
+            class="w-full pl-11 pr-4 py-3 rounded-2xl bg-black/60 border border-white/20 text-slate-100 placeholder-slate-400 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/30 transition-all shadow-inner backdrop-blur-md"
           >
           <button 
             id="clear-search-btn" 
-            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200"
+            class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white"
             title="Clear search"
           >
             ✕
           </button>
         </div>
 
-        <!-- Filter Count Tag -->
-        <div class="flex items-center justify-between md:justify-end gap-2 text-xs sm:text-sm text-slate-400">
-          <span>Showing:</span>
-          <span id="events-count-badge" class="font-bold text-indigo-400 px-2 py-0.5 rounded-md bg-indigo-950/70 border border-indigo-800/50">
+        <!-- Filter Count Tag with Multi-Colored Words -->
+        <div class="flex items-center justify-between md:justify-end gap-2 text-xs sm:text-sm">
+          <span>
+            <strong class="text-pink-400">Live</strong> <strong class="text-yellow-300">Catalog:</strong>
+          </span>
+          <span id="events-count-badge" class="font-black px-3 py-1 rounded-xl bg-pink-500/20 text-pink-300 border border-pink-500/40 shadow-[0_0_12px_rgba(236,72,153,0.3)]">
             Loading...
           </span>
         </div>
       </div>
 
-      <!-- Category Filter Buttons -->
-      <div class="mt-4 pt-4 border-t border-slate-800/80">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Category Filter</label>
-        <div id="category-filters" class="flex flex-wrap gap-2">
-          <button data-category="all" class="category-btn active-filter px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-indigo-600 text-white shadow-md shadow-indigo-600/30">
-            All Events
+      <!-- Category Filter Buttons: Vibrant Colored Pills -->
+      <div class="mt-5 pt-4 border-t border-white/10">
+        <label class="block text-xs font-black uppercase tracking-wider text-slate-400 mb-2.5">
+          <span class="text-pink-400">Select</span> <span class="text-yellow-300">Event</span> <span class="text-cyan-300">Category</span>
+        </label>
+        <div id="category-filters" class="flex flex-wrap gap-2.5">
+          <button data-category="all" class="category-btn active-filter px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white shadow-lg shadow-pink-500/25 border border-pink-400/40 hover:scale-105">
+            <span class="text-yellow-300">⚡</span> <span>All Events</span>
           </button>
-          <button data-category="Technical" class="category-btn px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700">
-            💻 Technical
+          <button data-category="Technical" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-black/45 text-cyan-300 hover:bg-cyan-950/60 border border-cyan-500/30 hover:border-cyan-400 hover:scale-105 shadow-md">
+            <span>💻</span> <span class="text-cyan-300">Technical</span>
           </button>
-          <button data-category="Cultural" class="category-btn px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700">
-            🎭 Cultural
+          <button data-category="Cultural" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-black/45 text-pink-300 hover:bg-pink-950/60 border border-pink-500/30 hover:border-pink-400 hover:scale-105 shadow-md">
+            <span>🎭</span> <span class="text-pink-300">Cultural</span>
           </button>
-          <button data-category="Sports" class="category-btn px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700">
-            ⚽ Sports
+          <button data-category="Sports" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-black/45 text-emerald-300 hover:bg-emerald-950/60 border border-emerald-500/30 hover:border-emerald-400 hover:scale-105 shadow-md">
+            <span>⚽</span> <span class="text-emerald-300">Sports</span>
           </button>
-          <button data-category="Gaming" class="category-btn px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700">
-            🎮 Gaming
+          <button data-category="Gaming" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-black/45 text-purple-300 hover:bg-purple-950/60 border border-purple-500/30 hover:border-purple-400 hover:scale-105 shadow-md">
+            <span>🎮</span> <span class="text-purple-300">Gaming</span>
           </button>
-          <button data-category="Workshop" class="category-btn px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700">
-            ⚡ Workshop
+          <button data-category="Workshop" class="category-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all bg-black/45 text-amber-300 hover:bg-amber-950/60 border border-amber-500/30 hover:border-amber-400 hover:scale-105 shadow-md">
+            <span>🛠️</span> <span class="text-amber-300">Workshop</span>
           </button>
         </div>
       </div>
@@ -181,24 +231,24 @@
 
     <!-- Loading State Container -->
     <div id="loading-state" class="py-16 text-center">
-      <div class="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 shadow-xl">
-        <svg class="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div class="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-black/60 border border-white/20 text-slate-200 shadow-2xl backdrop-blur-xl">
+        <svg class="animate-spin h-5 w-5 text-pink-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
         </svg>
-        <span class="text-sm font-medium">Loading events from server...</span>
+        <span class="text-sm font-bold"><strong class="text-pink-400">Loading</strong> <strong class="text-yellow-300">Zenith</strong> <strong class="text-cyan-300">Events...</strong></span>
       </div>
     </div>
 
     <!-- Error State Container -->
     <div id="error-state" class="hidden py-16 text-center">
-      <div class="max-w-md mx-auto p-6 rounded-2xl bg-red-950/40 border border-red-800/60 text-red-200 shadow-xl">
+      <div class="max-w-md mx-auto p-6 rounded-3xl bg-red-950/60 border border-red-800 text-red-200 shadow-2xl backdrop-blur-xl">
         <div class="text-4xl mb-3">⚠️</div>
-        <h3 class="text-lg font-bold text-white mb-2">Failed to load events</h3>
+        <h3 class="text-lg font-black text-white mb-2">Failed to load events</h3>
         <p id="error-message" class="text-xs sm:text-sm text-red-300 mb-4">
-          Could not communicate with the backend API. Please ensure the server is running at http://localhost:8000.
+          Could not communicate with the backend API.
         </p>
-        <button id="retry-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-red-600 hover:bg-red-500 text-white transition-all shadow-md">
+        <button id="retry-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white transition-all shadow-lg">
           Retry Request
         </button>
       </div>
@@ -206,41 +256,41 @@
 
     <!-- Empty State Container -->
     <div id="empty-state" class="hidden py-16 text-center">
-      <div class="max-w-md mx-auto p-8 rounded-2xl bg-slate-900/60 border border-slate-800 text-slate-300 shadow-xl">
+      <div class="max-w-md mx-auto p-8 rounded-3xl bg-black/60 border border-white/20 text-slate-300 shadow-2xl backdrop-blur-xl">
         <div class="text-4xl mb-3">🔍</div>
-        <h3 class="text-lg font-bold text-white mb-2">No events match your search</h3>
+        <h3 class="text-lg font-black text-white mb-2">No matching fest events</h3>
         <p class="text-xs sm:text-sm text-slate-400 mb-5">
-          Try clearing your search query or switching to a different category filter.
+          Try clearing your search query or picking another event category.
         </p>
-        <button id="reset-filters-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-md">
+        <button id="reset-filters-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white transition-all shadow-lg">
           Reset All Filters
         </button>
       </div>
     </div>
 
-    <!-- Event Cards Grid (Empty skeleton populated by app.js) -->
+    <!-- Event Cards Grid (Frosted Glassmorphism cards with multi-colored single words) -->
     <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
   </main>
 
-  <!-- Event Detail & Registration Modal -->
-  <div id="detail-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slate-950/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center">
-    <div class="relative w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden card-animate my-8">
+  <!-- Event Detail & Registration Modal (Frosted Crystal Glass) -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md p-4 sm:p-6 flex items-center justify-center">
+    <div class="relative w-full max-w-xl bg-slate-950/95 border border-white/20 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] overflow-hidden card-animate my-8 ring-1 ring-white/10">
       
       <!-- Modal Header -->
-      <div class="relative p-6 sm:p-8 bg-gradient-to-br from-indigo-950/60 via-slate-900 to-slate-900 border-b border-slate-800">
-        <button id="close-modal-btn" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center text-sm transition-all">
+      <div class="relative p-6 sm:p-8 bg-gradient-to-br from-pink-950/40 via-purple-950/30 to-black/80 border-b border-white/10">
+        <button id="close-modal-btn" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white flex items-center justify-center text-sm transition-all border border-white/15">
           ✕
         </button>
         <div class="flex items-start gap-4">
-          <div id="modal-icon" class="text-4xl p-3 rounded-2xl bg-slate-800/80 border border-slate-700 shadow-inner">
+          <div id="modal-icon" class="text-4xl p-3.5 rounded-2xl bg-white/10 border border-white/15 shadow-inner">
             ⚡
           </div>
           <div class="flex-1 pr-6">
-            <span id="modal-category" class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 mb-2">
+            <span id="modal-category" class="inline-block px-3 py-0.5 rounded-full text-xs font-black bg-pink-500/20 text-pink-300 border border-pink-500/40 mb-2 shadow-[0_0_10px_rgba(236,72,153,0.3)]">
               Category
             </span>
-            <h2 id="modal-title" class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h2 id="modal-title" class="text-xl sm:text-2xl font-black tracking-tight text-white drop-shadow">
               Event Title
             </h2>
           </div>
@@ -251,42 +301,44 @@
       <div class="p-6 sm:p-8 space-y-6">
         <!-- Event Metadata Details -->
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <div class="text-slate-400 font-medium">Date & Time</div>
-            <div id="modal-datetime" class="text-slate-100 font-semibold mt-0.5">14 Nov, 10:00 AM</div>
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+            <div class="text-slate-400 font-bold"><span class="text-pink-400">Date</span> & <span class="text-yellow-300">Time</span></div>
+            <div id="modal-datetime" class="text-slate-100 font-bold mt-1">14 Nov, 10:00 AM</div>
           </div>
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <div class="text-slate-400 font-medium">Venue</div>
-            <div id="modal-venue" class="text-slate-100 font-semibold mt-0.5 truncate">Auditorium</div>
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+            <div class="text-slate-400 font-bold"><span class="text-cyan-300">Fest</span> <span class="text-emerald-400">Venue</span></div>
+            <div id="modal-venue" class="text-slate-100 font-bold mt-1 truncate">Auditorium</div>
           </div>
-          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 col-span-2 sm:col-span-1">
-            <div class="text-slate-400 font-medium">Entry Fee / Seats</div>
-            <div class="flex items-center justify-between mt-0.5">
-              <span id="modal-fee" class="text-emerald-400 font-bold">Free</span>
-              <span id="modal-seats" class="text-indigo-300 font-semibold text-xs">50 left</span>
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md col-span-2 sm:col-span-1">
+            <div class="text-slate-400 font-bold"><span class="text-amber-300">Fee</span> / <span class="text-purple-300">Seats</span></div>
+            <div class="flex items-center justify-between mt-1">
+              <span id="modal-fee" class="text-emerald-400 font-black">Free</span>
+              <span id="modal-seats" class="text-pink-300 font-bold text-xs">50 left</span>
             </div>
           </div>
         </div>
 
         <!-- Description -->
         <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">About This Event</h4>
-          <p id="modal-description" class="text-sm text-slate-300 leading-relaxed bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/80">
+          <h4 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-1.5">
+            <span class="text-pink-400">About</span> <span class="text-yellow-300">This</span> <span class="text-cyan-300">Event</span>
+          </h4>
+          <p id="modal-description" class="text-sm text-slate-300 leading-relaxed bg-white/5 p-4 rounded-2xl border border-white/10">
             Full description goes here...
           </p>
         </div>
 
         <!-- Registration Form Header -->
-        <div class="border-t border-slate-800 pt-5">
-          <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
-            <span>📝</span> Student Registration
+        <div class="border-t border-white/10 pt-5">
+          <h3 class="text-base font-black text-white mb-1 flex items-center gap-2">
+            <span>📝</span> <span><strong class="text-pink-400">Student</strong> <strong class="text-cyan-300">Registration</strong></span>
           </h3>
           <p class="text-xs text-slate-400 mb-4">
             Enter your student details to reserve your spot. Registrations are bound to your student email.
           </p>
 
           <!-- Status / Error Notification Box inside form -->
-          <div id="form-error-box" class="hidden mb-4 p-3.5 rounded-xl bg-red-950/60 border border-red-800 text-red-200 text-xs sm:text-sm">
+          <div id="form-error-box" class="hidden mb-4 p-3.5 rounded-2xl bg-red-950/80 border border-red-700 text-red-200 text-xs sm:text-sm">
             <div class="flex items-start gap-2">
               <span class="text-base">⚠️</span>
               <span id="form-error-text">Error message here</span>
@@ -294,8 +346,8 @@
           </div>
 
           <!-- Success Notification Box inside form -->
-          <div id="form-success-box" class="hidden mb-4 p-4 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-200 text-xs sm:text-sm">
-            <div class="flex items-center gap-2 font-bold text-emerald-300 text-sm mb-1">
+          <div id="form-success-box" class="hidden mb-4 p-4 rounded-2xl bg-emerald-950/80 border border-emerald-700 text-emerald-200 text-xs sm:text-sm shadow-xl">
+            <div class="flex items-center gap-2 font-black text-emerald-300 text-sm mb-1">
               <span>🎉</span> Registration Confirmed!
             </div>
             <p id="form-success-text">You are registered for this event. See you there!</p>
@@ -307,55 +359,55 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label for="student-name" class="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Student Name <span class="text-red-400">*</span>
+                <label for="student-name" class="block text-xs font-bold text-slate-300 mb-1.5">
+                  <span class="text-pink-400">Student</span> <span class="text-yellow-300">Name</span> <span class="text-red-400">*</span>
                 </label>
                 <input 
                   type="text" 
                   id="student-name" 
                   required 
                   placeholder="e.g. Alex Morgan"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                 >
               </div>
 
               <div>
-                <label for="roll-number" class="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Roll Number <span class="text-red-400">*</span>
+                <label for="roll-number" class="block text-xs font-bold text-slate-300 mb-1.5">
+                  <span class="text-cyan-300">Roll</span> <span class="text-emerald-400">Number</span> <span class="text-red-400">*</span>
                 </label>
                 <input 
                   type="text" 
                   id="roll-number" 
                   required 
                   placeholder="e.g. 26CS042"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                 >
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label for="student-email" class="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Student Email <span class="text-red-400">*</span>
+                <label for="student-email" class="block text-xs font-bold text-slate-300 mb-1.5">
+                  <span class="text-purple-300">Student</span> <span class="text-amber-300">Email</span> <span class="text-red-400">*</span>
                 </label>
                 <input 
                   type="email" 
                   id="student-email" 
                   required 
                   placeholder="e.g. alex@college.edu"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                 >
               </div>
 
               <div>
-                <label for="student-phone" class="block text-xs font-semibold text-slate-300 mb-1.5">
-                  Phone Number <span class="text-slate-500 font-normal">(Optional)</span>
+                <label for="student-phone" class="block text-xs font-bold text-slate-300 mb-1.5">
+                  <span class="text-rose-300">Phone</span> <span class="text-sky-300">Number</span> <span class="text-slate-500 font-normal">(Optional)</span>
                 </label>
                 <input 
                   type="tel" 
                   id="student-phone" 
                   placeholder="e.g. +91 9876543210"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                  class="w-full px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/20 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                 >
               </div>
             </div>
@@ -365,14 +417,14 @@
               <button 
                 type="button" 
                 id="cancel-form-btn" 
-                class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all"
+                class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all border border-white/10"
               >
                 Close
               </button>
               <button 
                 type="submit" 
                 id="submit-reg-btn" 
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-black bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 hover:from-pink-500 hover:to-cyan-400 text-white shadow-lg shadow-pink-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span id="submit-btn-spinner" class="hidden">
                   <svg class="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
@@ -380,7 +432,7 @@
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                   </svg>
                 </span>
-                <span id="submit-btn-text">Confirm Registration</span>
+                <span id="submit-btn-text">Confirm Registration ⚡</span>
               </button>
             </div>
           </form>
@@ -389,21 +441,24 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="mt-auto border-t border-slate-800/80 bg-slate-950 py-8 text-center text-xs text-slate-500">
+  <!-- Footer (Frosted Glass) -->
+  <footer class="mt-auto border-t border-white/10 bg-black/40 backdrop-blur-xl py-8 text-center text-xs text-slate-400 z-10">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <span class="font-bold text-slate-300">Zenith '26 Fest System</span> — PM2-01 & PM2-02 Hands-On Capstone
+        <span class="font-black text-white">
+          <span class="text-pink-500">Z</span><span class="text-yellow-400">E</span><span class="text-cyan-400">N</span><span class="text-emerald-400">I</span><span class="text-purple-400">T</span><span class="text-orange-400">H</span>
+          <span class="text-rose-400 ml-1">'26</span> Fest System
+        </span> — PM2-01 & PM2-02 Hands-On Capstone
       </div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <a href="/docs" target="_blank" class="hover:text-indigo-400 underline transition-colors">FastAPI Docs (/docs)</a>
+      <div class="flex items-center gap-4 text-slate-300 font-bold">
+        <a href="/docs" target="_blank" class="hover:text-pink-400 underline transition-colors">FastAPI Docs (/docs)</a>
         <span>•</span>
-        <a href="/admin.html" class="hover:text-indigo-400 underline transition-colors">Admin Portal</a>
+        <a href="/admin.html" class="hover:text-cyan-400 underline transition-colors">Admin Portal</a>
       </div>
     </div>
   </footer>
 
-  <!-- Festive Background Animation Engine (Fireworks, Spotlights, Sparklers) -->
+  <!-- Festive Background Animation Engine (Live Video + Sweeping Lasers + Fireworks + Characters) -->
   <script src="/js/fest-animation.js"></script>
   <!-- App Script -->
   <script src="/js/app.js"></script>
