@@ -77,19 +77,19 @@
       <!-- 6. LIVE DANCING CARTOON CHARACTERS (Real 2D Cartoon Art with Footlights) -->
       <div id="fest-characters-container" class="absolute inset-x-0 bottom-4 sm:bottom-6 pointer-events-none z-25 flex items-end justify-around px-4 sm:px-12 max-w-7xl mx-auto">
         
-        <!-- Character 1: PATLU (Waving Golden Sparkler) -->
-        <div class="char-wrapper char-patlu" title="Patlu waving sparkler">
+        <!-- Character 1: MOTU & PATLU (Celebrating Duo) -->
+        <div class="char-wrapper char-motu" title="Motu & Patlu celebrating">
           <div class="stage-footlight"></div>
-          <div class="char-body-bounce patlu-anim">
-            <img src="/assets/characters/patlu.png" alt="Patlu" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_16px_rgba(250,204,21,0.6)]" />
+          <div class="char-body-bounce motu-anim">
+            <img src="/assets/characters/motu-patlu.png" alt="Motu & Patlu" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_16px_rgba(249,115,22,0.6)]" />
           </div>
         </div>
 
-        <!-- Character 2: MOTU (Dancing with Samosa) -->
-        <div class="char-wrapper char-motu" title="Motu dancing">
+        <!-- Character 2: PIKACHU (Cheering) -->
+        <div class="char-wrapper char-pikachu" title="Pikachu cheering">
           <div class="stage-footlight"></div>
-          <div class="char-body-bounce motu-anim">
-            <img src="/assets/characters/motu.png" alt="Motu" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_16px_rgba(239,68,68,0.6)]" />
+          <div class="char-body-bounce patlu-anim">
+            <img src="/assets/characters/pikachu.png" alt="Pikachu" class="h-24 sm:h-32 object-contain drop-shadow-[0_4px_16px_rgba(250,204,21,0.6)]" />
           </div>
         </div>
 
