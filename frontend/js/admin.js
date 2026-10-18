@@ -174,11 +174,11 @@ function renderStats(stats) {
     const icon = categoryIcons[cat] || "🏷️";
     const card = document.createElement("div");
     card.className =
-      "bg-black/50 border border-white/15 hover:border-pink-500/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg backdrop-blur-xl transition-all hover:scale-105 ring-1 ring-white/5";
+      "bg-white/15 border border-white/25 hover:border-pink-400/50 rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-md backdrop-blur-xl transition-all hover:scale-105 ring-1 ring-white/10";
     card.innerHTML = `
       <div class="text-2xl mb-1">${icon}</div>
-      <div class="text-xs font-black text-slate-200 truncate w-full">${cat}</div>
-      <div class="text-lg font-black text-pink-400 mt-1">${count} <span class="text-[10px] text-yellow-300 font-bold">events</span></div>
+      <div class="text-xs font-black text-slate-100 truncate w-full">${cat}</div>
+      <div class="text-lg font-black text-pink-300 mt-1">${count} <span class="text-[10px] text-yellow-300 font-bold">events</span></div>
     `;
     catContainer.appendChild(card);
   });
@@ -191,7 +191,7 @@ function renderEventsTable(events) {
   tbody.innerHTML = "";
 
   if (events.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400">No events found in database.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-300">No events found in database.</td></tr>`;
     return;
   }
 
@@ -215,9 +215,9 @@ function renderEventsTable(events) {
 
     if (isCritical) {
       tr.className =
-        "bg-red-950/30 hover:bg-red-950/40 border-l-4 border-l-red-500 transition-colors";
+        "bg-red-950/40 hover:bg-red-950/50 border-l-4 border-l-red-500 transition-colors";
     } else {
-      tr.className = "hover:bg-white/5 transition-colors";
+      tr.className = "hover:bg-white/10 transition-colors";
     }
 
     tr.innerHTML = `
