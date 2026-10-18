@@ -180,8 +180,12 @@ async function loadEvents() {
 
   const url = `/api/events${params.toString() ? "?" + params.toString() : ""}`;
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2500);
+
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!res.ok) {
       throw new Error(`Server returned HTTP ${res.status}: ${res.statusText}`);
     }

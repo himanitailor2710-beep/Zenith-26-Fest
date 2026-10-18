@@ -1,33 +1,63 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "api/index.py",
+      "use": "@vercel/python"
     },
     {
-      "source": "/docs",
-      "destination": "/api/index.py"
+      "src": "assets/**",
+      "use": "@vercel/static"
     },
     {
-      "source": "/openapi.json",
-      "destination": "/api/index.py"
+      "src": "frontend/**",
+      "use": "@vercel/static"
     },
     {
-      "source": "/admin.html",
-      "destination": "/frontend/admin.html"
+      "src": "js/**",
+      "use": "@vercel/static"
     },
     {
-      "source": "/js/(.*)",
-      "destination": "/frontend/js/$1"
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
-      "source": "/",
-      "destination": "/frontend/index.html"
+      "src": "/js/(.*)",
+      "dest": "/js/$1"
     },
     {
-      "source": "/index.html",
-      "destination": "/frontend/index.html"
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/docs",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/admin.html",
+      "dest": "/admin.html"
+    },
+    {
+      "src": "/index.html",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
     }
   ]
 }

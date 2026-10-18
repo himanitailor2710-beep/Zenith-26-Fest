@@ -9,6 +9,10 @@ else:
     DB_PATH = Path(__file__).resolve().parent.parent / "fest.db"
 
 
+def get_db_type() -> str:
+    return "sqlite"
+
+
 def get_db_connection():
     """
     Returns an SQLite connection with Row row_factory and foreign keys enabled.

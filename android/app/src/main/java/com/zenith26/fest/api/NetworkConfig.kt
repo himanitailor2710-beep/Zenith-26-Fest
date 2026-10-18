@@ -5,20 +5,32 @@ import android.content.SharedPreferences
 
 /**
  * Manages the Base URL and network configuration for the Zenith '26 Android application.
- * Defaults to 10.0.2.2:8000 for standard Android Emulator, with persistent preference override.
+ * Defaults to the active host server on port 8081 (both Wi-Fi IP and emulator loopback).
  */
 object NetworkConfig {
     private const val PREFS_NAME = "zenith26_network_prefs"
     private const val KEY_BASE_URL = "base_url"
 
-    // Default development host for Android Emulator accessing host PC
+    // Primary candidates: Wi-Fi IP of developer machine, emulator IP, localhost
+    const val DEFAULT_WIFI_BASE_URL = "http://192.168.31.145:8081"
     const val DEFAULT_EMULATOR_BASE_URL = "http://10.0.2.2:8081"
     const val DEFAULT_LOCALHOST_BASE_URL = "http://127.0.0.1:8081"
 
+    val CANDIDATE_URLS = listOf(
+        "http://192.168.31.145:8081",
+        "http://10.0.2.2:8081",
+        "http://127.0.0.1:8081",
+        "http://192.168.31.145:8000",
+        "http://10.0.2.2:8000"
+    )
+
     fun getBaseUrl(context: Context): String {
         val prefs = getPrefs(context)
-        val url = prefs.getString(KEY_BASE_URL, DEFAULT_EMULATOR_BASE_URL) ?: DEFAULT_EMULATOR_BASE_URL
-        return sanitizeUrl(url)
+        val saved = prefs.getString(KEY_BASE_URL, null)
+        if (!saved.isNullOrBlank()) {
+            return sanitizeUrl(saved)
+        }
+        return sanitizeUrl(DEFAULT_WIFI_BASE_URL)
     }
 
     fun setBaseUrl(context: Context, url: String) {
@@ -27,7 +39,7 @@ object NetworkConfig {
         ApiClient.resetClient()
     }
 
-    private fun sanitizeUrl(url: String): String {
+    fun sanitizeUrl(url: String): String {
         var clean = url.trim()
         if (!clean.startsWith("http://") && !clean.startsWith("https://")) {
             clean = "http://$clean"

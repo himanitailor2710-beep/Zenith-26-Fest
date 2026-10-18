@@ -2,6 +2,7 @@
 .venv/
 venv/
 ENV/
+env/
 
 # Python bytecode & cache
 __pycache__/
@@ -9,7 +10,7 @@ __pycache__/
 *$py.class
 *.so
 
-# SQLite database (auto-generated on app startup)
+# SQLite local database (generated on runtime)
 *.db
 *.sqlite3
 
@@ -18,12 +19,19 @@ build/
 dist/
 *.egg-info/
 
-# Android build artifacts
+# Android build artifacts & caches
 .gradle/
 **/build/
 local.properties
-*.apk
+.idea/
+*.iml
+.cxx/
+captures/
 
 # OS specific
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Secrets
+.env

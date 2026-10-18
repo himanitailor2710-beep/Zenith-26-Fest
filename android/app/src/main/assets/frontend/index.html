@@ -65,7 +65,7 @@
 
         <!-- Nav Links -->
         <div class="flex items-center gap-3">
-          <a href="/admin.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 hover:border-slate-600 transition-all shadow-sm">
+          <a href="/admin.html" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm font-medium bg-slate-800/90 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 hover:border-slate-600 transition-all shadow-sm backdrop-blur-sm">
             <span>📊</span>
             <span>Admin Dashboard</span>
           </a>
@@ -78,37 +78,37 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 py-16 sm:py-24 border-b border-slate-800/80">
+  <section class="relative overflow-hidden bg-slate-950/60 backdrop-blur-sm py-16 sm:py-24 border-b border-slate-800/70 z-10">
     <!-- Background Glows -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 sm:w-[600px] h-96 sm:h-[600px] bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <!-- Date Banner -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs sm:text-sm font-medium mb-6 shadow-sm backdrop-blur-sm animate-pulse">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-200 text-xs sm:text-sm font-medium mb-6 shadow-sm backdrop-blur-md animate-pulse">
         <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
         <span>Nov 14–15, 2026 • 2 Days of Pure Electric Energy</span>
       </div>
 
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight drop-shadow-md">
         Experience the Pulse of <br class="hidden sm:block">
         <span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
           Zenith '26
         </span>
       </h1>
 
-      <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-300 mb-8 leading-relaxed">
+      <p class="max-w-2xl mx-auto text-base sm:text-xl text-slate-200 mb-8 leading-relaxed drop-shadow">
         Code, compete, perform, and create. Explore 14 premier inter-college events spanning technology, cultural arts, gaming, and high-impact workshops.
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-medium text-slate-400">
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm font-medium text-slate-300">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
           <span class="text-indigo-400">🏆</span> 14 Signature Events
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
           <span class="text-emerald-400">🎟️</span> Instant Free/Paid RSVP
         </div>
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-md shadow-md">
           <span class="text-pink-400">📍</span> On Campus Venues
         </div>
       </div>
@@ -116,10 +116,10 @@
   </section>
 
   <!-- Events Section -->
-  <main id="events-section" class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full">
+  <main id="events-section" class="relative z-10 flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 w-full">
     
     <!-- Controls Bar: Search & Category Filter Pills -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 sm:p-6 mb-8 shadow-xl backdrop-blur-sm">
+    <div class="bg-slate-900/85 border border-slate-800/90 rounded-2xl p-4 sm:p-6 mb-8 shadow-2xl backdrop-blur-md">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         
         <!-- Search Input -->
@@ -196,7 +196,7 @@
         <div class="text-4xl mb-3">⚠️</div>
         <h3 class="text-lg font-bold text-white mb-2">Failed to load events</h3>
         <p id="error-message" class="text-xs sm:text-sm text-red-300 mb-4">
-          Could not communicate with the backend API. Please ensure the server is running at http://localhost:8081.
+          Could not communicate with the backend API. Please ensure the server is running at http://localhost:8000.
         </p>
         <button id="retry-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-red-600 hover:bg-red-500 text-white transition-all shadow-md">
           Retry Request
@@ -403,6 +403,8 @@
     </div>
   </footer>
 
+  <!-- Festive Background Animation Engine (Fireworks, Spotlights, Sparklers) -->
+  <script src="/js/fest-animation.js"></script>
   <!-- App Script -->
   <script src="/js/app.js"></script>
 </body>

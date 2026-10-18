@@ -86,15 +86,19 @@ async function loadDashboardData() {
   const errorBanner = document.getElementById("admin-error-banner");
   errorBanner.classList.add("hidden");
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2500);
+
   try {
     // 1. Fetch live stats
-    const statsRes = await fetch("/api/stats");
+    const statsRes = await fetch("/api/stats", { signal: controller.signal });
     if (!statsRes.ok) throw new Error(`HTTP ${statsRes.status} fetching stats`);
     const stats = await statsRes.json();
     renderStats(stats);
 
     // 2. Fetch all events
-    const eventsRes = await fetch("/api/events");
+    const eventsRes = await fetch("/api/events", { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!eventsRes.ok) throw new Error(`HTTP ${eventsRes.status} fetching events`);
     const events = await eventsRes.json();
     allEventsCache = events;

@@ -180,8 +180,12 @@ async function loadEvents() {
 
   const url = `/api/events${params.toString() ? "?" + params.toString() : ""}`;
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 2500);
+
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!res.ok) {
       throw new Error(`Server returned HTTP ${res.status}: ${res.statusText}`);
     }
@@ -215,7 +219,7 @@ async function loadEvents() {
 function createEventCard(event, index) {
   const card = document.createElement("div");
   card.className =
-    "card-animate group bg-slate-900 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-5 sm:p-6 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 flex flex-col justify-between";
+    "card-animate group bg-slate-900/85 backdrop-blur-md border border-slate-800/90 hover:border-indigo-400/60 rounded-2xl p-5 sm:p-6 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 flex flex-col justify-between";
   card.style.animationDelay = `${index * 40}ms`;
 
   const isFull = event.available_seats <= 0;

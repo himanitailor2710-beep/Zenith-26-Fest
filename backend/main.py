@@ -41,13 +41,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Eagerly initialize and seed database on serverless cold starts
-try:
-    init_db()
-    seed_events()
-except Exception as _e:
-    print(f"Initial DB check: {_e}")
-
 # Enable CORS for local development
 app.add_middleware(
     CORSMiddleware,
@@ -410,12 +403,9 @@ def delete_registration(registration_id: int):
     return {"message": "Registration cancelled successfully", "id": registration_id}
 
 
-# ==========================================
-# STATIC FILES & FRONTEND SERVING
-# ==========================================
-
-# Mount js directory
+# Mount js and assets directories
 app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="js")
+app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="assets")
 
 
 @app.get("/", include_in_schema=False)
