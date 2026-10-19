@@ -81,7 +81,7 @@
         <div class="char-wrapper char-motu" title="Motu & Patlu celebrating">
           <div class="stage-footlight"></div>
           <div class="char-body-bounce motu-anim">
-            <img src="/assets/characters/motu-patlu.png" alt="Motu & Patlu" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_16px_rgba(249,115,22,0.6)]" />
+            <img src="/assets/characters/motu-patlu.png" alt="Motu & Patlu" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_16px_rgba(249,115,22,0.6)]" style="max-height: 144px; width: auto;" />
           </div>
         </div>
 
@@ -97,7 +97,7 @@
         <div class="char-wrapper char-bheem" title="Chhota Bheem celebrating">
           <div class="stage-footlight"></div>
           <div class="char-body-bounce bheem-anim">
-            <img src="/assets/characters/chhota-bheem.png" alt="Chhota Bheem" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_18px_rgba(249,115,22,0.6)]" />
+            <img src="/assets/characters/chhota-bheem.png" alt="Chhota Bheem" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_18px_rgba(249,115,22,0.6)]" style="max-height: 144px; width: auto;" />
           </div>
         </div>
 
@@ -105,15 +105,15 @@
         <div class="char-wrapper char-tomjerry hidden sm:block" title="Tom and Jerry">
           <div class="stage-footlight"></div>
           <div class="char-body-bounce tomjerry-anim">
-            <img src="/assets/characters/tom-jerry.png" alt="Tom & Jerry" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_18px_rgba(236,72,153,0.6)]" />
+            <img src="/assets/characters/tom-jerry.png" alt="Tom & Jerry" class="h-28 sm:h-36 object-contain drop-shadow-[0_4px_18px_rgba(236,72,153,0.6)]" style="max-height: 144px; width: auto;" />
           </div>
         </div>
 
-        <!-- Character 5: DORA THE EXPLORER (Bouncing & Waving) -->
+        <!-- Character 5: DORA THE EXPLORER (Bouncing & Waving - Minimized) -->
         <div class="char-wrapper char-dora hidden sm:block" title="Dora waving">
           <div class="stage-footlight"></div>
           <div class="char-body-bounce dora-anim">
-            <img src="/assets/characters/dora.png" alt="Dora" class="h-26 sm:h-34 object-contain drop-shadow-[0_4px_16px_rgba(244,114,182,0.6)]" />
+            <img src="/assets/characters/dora.png" alt="Dora" class="h-20 sm:h-28 object-contain drop-shadow-[0_4px_16px_rgba(244,114,182,0.6)]" style="max-height: 110px; width: auto;" />
           </div>
         </div>
 
@@ -121,7 +121,7 @@
         <div class="char-wrapper char-shinchan" title="Shinchan funny dance">
           <div class="stage-footlight"></div>
           <div class="char-body-bounce shinchan-anim">
-            <img src="/assets/characters/shinchan.png" alt="Shinchan" class="h-24 sm:h-32 object-contain drop-shadow-[0_4px_18px_rgba(244,63,94,0.7)]" />
+            <img src="/assets/characters/shinchan.png" alt="Shinchan" class="h-24 sm:h-32 object-contain drop-shadow-[0_4px_18px_rgba(244,63,94,0.7)]" style="max-height: 128px; width: auto;" />
           </div>
         </div>
 
@@ -209,6 +209,24 @@
       .char-wrapper {
         position: relative;
         transition: transform 0.3s ease;
+      }
+      .char-wrapper img {
+        height: auto;
+        max-height: 144px;
+        width: auto;
+        object-fit: contain;
+      }
+      .char-dora img {
+        height: 75px !important;
+        max-height: 95px !important;
+        width: auto !important;
+      }
+      @media (min-width: 640px) {
+        .char-dora img {
+          height: 100px !important;
+          max-height: 110px !important;
+          width: auto !important;
+        }
       }
 
       /* Patlu Waving Groove */
